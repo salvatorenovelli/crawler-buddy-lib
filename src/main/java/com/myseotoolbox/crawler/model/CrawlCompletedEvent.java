@@ -11,7 +11,7 @@ public class CrawlCompletedEvent {
     private SimpleWebsiteCrawl websiteCrawl;
 
     public CrawlCompletedEvent(WebsiteCrawl websiteCrawl) {
-        this.websiteCrawl = new SimpleWebsiteCrawl(websiteCrawl.getId().toHexString(), websiteCrawl.getOrigin());
+        this.websiteCrawl = new SimpleWebsiteCrawl(websiteCrawl.getId(), websiteCrawl.getOrigin());
     }
 }
 

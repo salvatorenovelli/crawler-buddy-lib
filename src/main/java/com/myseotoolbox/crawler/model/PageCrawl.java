@@ -4,9 +4,6 @@ package com.myseotoolbox.crawler.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.bson.types.ObjectId;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
 
 import java.util.Date;
 import java.util.List;
@@ -16,8 +13,8 @@ import java.util.List;
 @AllArgsConstructor
 public class PageCrawl {
 
-    @Id private ObjectId id;
-    @Indexed private String uri;
+    private String id;
+    private String uri;
     private Date createDate;
     private ResolvableField<List<RedirectChainElement>> redirectChainElements;
     private ResolvableField<String> title;

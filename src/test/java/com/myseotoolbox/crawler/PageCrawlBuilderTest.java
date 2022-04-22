@@ -6,7 +6,6 @@ import com.myseotoolbox.crawler.model.RedirectChainElement;
 import com.myseotoolbox.crawler.model.ResolvableField;
 import com.myseotoolbox.crawler.testutils.CrawlHistoryTest;
 import com.myseotoolbox.crawler.testutils.CrawlHistoryTestBuilder;
-import org.bson.types.ObjectId;
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.junit.Test;
@@ -14,8 +13,7 @@ import org.junit.Test;
 import java.util.List;
 
 import static com.myseotoolbox.crawler.StandardMetaTagValues.*;
-import static com.myseotoolbox.crawler.testutils.CrawlHistoryTestBuilder.a404PageSnapshot;
-import static com.myseotoolbox.crawler.testutils.CrawlHistoryTestBuilder.standardPageSnapshot;
+import static com.myseotoolbox.crawler.testutils.CrawlHistoryTestBuilder.*;
 import static com.myseotoolbox.crawler.testutils.PageCrawlMatchers.referenceTo;
 import static com.myseotoolbox.crawler.testutils.PageCrawlMatchers.valueType;
 import static com.myseotoolbox.crawler.testutils.PageSnapshotTestBuilder.aPageSnapshotWithStandardValuesForUri;
@@ -56,7 +54,7 @@ public class PageCrawlBuilderTest implements CrawlHistoryTest {
 
         PageCrawl pageCrawl = sut.build(prevVal, curVal, prevCrawl);
 
-        ObjectId prevCrawlId = prevCrawl.getId();
+        String prevCrawlId = prevCrawl.getId();
 
         assertThat(pageCrawl.getRedirectChainElements().getReference(), is(prevCrawlId));
         assertThat(pageCrawl.getTitle().getReference(), is(prevCrawlId));
@@ -335,9 +333,9 @@ public class PageCrawlBuilderTest implements CrawlHistoryTest {
 
         PageCrawl pageCrawl = sut.build(prevVal, curVal, prevCrawl);
 
-        assertThat(pageCrawl.getMetaDescriptions().getReference(), is(new ObjectId(STANDARD_DATE, 0)));
-        assertThat(pageCrawl.getTitle().getReference(), is(new ObjectId(STANDARD_DATE, 1)));
-        assertThat(pageCrawl.getH1s().getReference(), is(new ObjectId(STANDARD_DATE, 2)));
+        assertThat(pageCrawl.getMetaDescriptions().getReference(), is(generateTestCrawlId(STANDARD_DATE, 0)));
+        assertThat(pageCrawl.getTitle().getReference(), is(generateTestCrawlId(STANDARD_DATE, 1)));
+        assertThat(pageCrawl.getH1s().getReference(), is(generateTestCrawlId(STANDARD_DATE, 2)));
     }
 
 
@@ -397,7 +395,7 @@ public class PageCrawlBuilderTest implements CrawlHistoryTest {
         return new CrawlHistoryTestBuilder(this);
     }
 
-    private BaseMatcher<ResolvableField<?>> referenceToCrawl(ObjectId actual) {
+    private BaseMatcher<ResolvableField<?>> referenceToCrawl(String actual) {
         return new BaseMatcher<ResolvableField<?>>() {
             @Override
             public boolean matches(Object item) {
@@ -409,7 +407,7 @@ public class PageCrawlBuilderTest implements CrawlHistoryTest {
 
             @Override
             public void describeTo(Description description) {
-                description.appendText(actual.toString());
+                description.appendText(actual);
             }
         };
     }

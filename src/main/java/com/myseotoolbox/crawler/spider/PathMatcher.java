@@ -1,6 +1,7 @@
 package com.myseotoolbox.crawler.spider;
 
-import org.springframework.util.AntPathMatcher;
+
+import com.myseotoolbox.crawler.utils.AntPathMatcher;
 
 import static com.myseotoolbox.crawler.spider.configuration.AllowedPathFromSeeds.extractAllowedPathFromSeed;
 

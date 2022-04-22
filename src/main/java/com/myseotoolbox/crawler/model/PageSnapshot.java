@@ -6,10 +6,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.Transient;
-import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
 import java.util.List;
@@ -18,14 +14,13 @@ import java.util.Objects;
 import static java.util.stream.Collectors.toList;
 
 @Getter
-@Document
 @NoArgsConstructor
 @Setter
 @EqualsAndHashCode
 public class PageSnapshot {
 
-    @Id private String id;
-    @Indexed private String uri;
+    private String id;
+    private String uri;
     private Date createDate;
 
     private List<RedirectChainElement> redirectChainElements;
@@ -36,7 +31,7 @@ public class PageSnapshot {
     private List<String> metaDescriptions;
     private List<String> canonicals;
 
-    @Transient private List<PageLink> links;
+    private List<PageLink> links;
 
     private String crawlStatus;
 

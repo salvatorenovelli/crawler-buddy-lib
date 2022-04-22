@@ -1,13 +1,13 @@
 package com.myseotoolbox.crawler.testutils;
 
 import com.myseotoolbox.crawler.model.*;
-import org.bson.types.ObjectId;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Stream;
 
 import static com.myseotoolbox.crawler.StandardMetaTagValues.STANDARD_DATE;
@@ -18,7 +18,7 @@ import static java.util.Arrays.asList;
 
 public class CrawlHistoryTestBuilder {
 
-    public static final String WEBSITE_CRAWL_ID = new ObjectId().toHexString();
+    public static final String WEBSITE_CRAWL_ID = UUID.randomUUID().toString();
     private final Date crawlDate = STANDARD_DATE;
     private final CrawlHistoryTest testContext;
     private final String uri;
@@ -52,8 +52,12 @@ public class CrawlHistoryTestBuilder {
                 ResolvableField.forValue(value.getCanonicals()), value.getCrawlStatus());
     }
 
-    private ObjectId generateCrawlId() {
-        return new ObjectId(crawlDate, crawlCounter++);
+    private String generateCrawlId() {
+        return generateTestCrawlId(crawlDate, crawlCounter++);
+    }
+
+    public static String generateTestCrawlId(Date crawlDate, int crawlCounter) {
+        return "CRAWL_ID:" + crawlDate + "-" + crawlCounter;
     }
 
 

@@ -3,8 +3,7 @@ package com.myseotoolbox.crawler;
 import com.myseotoolbox.crawler.model.PageCrawl;
 import com.myseotoolbox.crawler.model.PageSnapshot;
 import com.myseotoolbox.crawler.model.ResolvableField;
-import org.springframework.lang.Nullable;
-import org.springframework.util.Assert;
+import net.jodah.failsafe.internal.util.Assert;
 
 import java.util.Objects;
 import java.util.function.Function;
@@ -12,7 +11,7 @@ import java.util.function.Function;
 public class PageCrawlBuilder {
 
 
-    public PageCrawl build(@Nullable PageSnapshot prevValue, PageSnapshot curValue, @Nullable PageCrawl prevCrawl) {
+    public PageCrawl build(PageSnapshot prevValue, PageSnapshot curValue, PageCrawl prevCrawl) {
 
         sanitizeParams(prevValue, curValue, prevCrawl);
 
@@ -28,14 +27,14 @@ public class PageCrawlBuilder {
         return pageCrawl;
     }
 
-    private <T> ResolvableField<T> compare(@Nullable PageSnapshot prevValue,
+    private <T> ResolvableField<T> compare(PageSnapshot prevValue,
                                            PageSnapshot curValue,
                                            PageCrawl prevCrawl,
                                            Function<PageCrawl, ResolvableField<T>> pageCrawlFieldMapper,
                                            Function<PageSnapshot, T> snapshotMapper) {
 
 
-        if (prevValue != null && Objects.equals(snapshotMapper.apply(curValue),snapshotMapper.apply(prevValue))) {
+        if (prevValue != null && Objects.equals(snapshotMapper.apply(curValue), snapshotMapper.apply(prevValue))) {
 
             ResolvableField<T> prevCrawlField = pageCrawlFieldMapper.apply(prevCrawl);
 
@@ -51,7 +50,7 @@ public class PageCrawlBuilder {
 
     }
 
-    private void sanitizeParams(@Nullable PageSnapshot prevValue, PageSnapshot curValue, @Nullable PageCrawl prevCrawl) {
+    private void sanitizeParams( PageSnapshot prevValue, PageSnapshot curValue,  PageCrawl prevCrawl) {
         if (prevValue == null || prevCrawl == null) {
             //If one is null, both have to be null
             Assert.isTrue(prevValue == null && prevCrawl == null, "PrevCrawl and PrevValue should be two view of the same state");

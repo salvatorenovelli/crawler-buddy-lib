@@ -2,14 +2,13 @@ package com.myseotoolbox.crawler.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.bson.types.ObjectId;
 
 
 @Data
 @AllArgsConstructor
 public class ResolvableField<T> {
     private final T value;
-    private final ObjectId reference;
+    private final String reference;
 
 
     /**
@@ -23,7 +22,7 @@ public class ResolvableField<T> {
         return new ResolvableField<>(value, null);
     }
 
-    public static <T> ResolvableField<T> forReference(ObjectId reference) {
+    public static <T> ResolvableField<T> forReference(String reference) {
         return new ResolvableField<>(null, reference);
     }
 }

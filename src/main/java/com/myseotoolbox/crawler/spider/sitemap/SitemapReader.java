@@ -1,14 +1,12 @@
 package com.myseotoolbox.crawler.spider.sitemap;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@Component
 @Slf4j
 public class SitemapReader {
     /*

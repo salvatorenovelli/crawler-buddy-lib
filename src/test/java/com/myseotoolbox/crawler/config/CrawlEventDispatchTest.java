@@ -7,7 +7,6 @@ import com.myseotoolbox.crawler.testutils.PageSnapshotTestBuilder;
 import com.myseotoolbox.crawler.websitecrawl.CrawlStartedEvent;
 import com.myseotoolbox.crawler.websitecrawl.WebsiteCrawl;
 import com.myseotoolbox.crawler.websitecrawl.WebsiteCrawlFactory;
-import org.bson.types.ObjectId;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,6 +14,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.UUID;
 
 import static org.junit.Assert.fail;
 
@@ -27,8 +27,7 @@ public class CrawlEventDispatchTest {
 
     public static final PageSnapshot TEST_PAGE_SNAPSHOT = PageSnapshotTestBuilder.aPageSnapshotWithStandardValuesForUri("http://host");
     public static final CrawlResult TEST_CRAWL_RESULT = CrawlResult.forSnapshot(TEST_PAGE_SNAPSHOT);
-    public static final ObjectId TEST_CRAWL_ID = new ObjectId();
-    public static final String TEST_CRAWL_ID_STR = TEST_CRAWL_ID.toHexString();
+    public static final String TEST_CRAWL_ID = UUID.randomUUID().toString();
     private static final WebsiteCrawl CRAWL = WebsiteCrawlFactory.newWebsiteCrawlFor(TEST_CRAWL_ID, TEST_ORIGIN, Collections.emptyList());
 
 
