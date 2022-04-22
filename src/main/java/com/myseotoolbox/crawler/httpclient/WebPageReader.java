@@ -51,7 +51,7 @@ public class WebPageReader {
             pageSnapshot.setUri(startURI);
             pageSnapshot.setCreateDate(calendarService.now());
             pageSnapshot.setRedirectChainElements(chain.getElements());
-            pageSnapshot.setCrawlStatus("Unable to crawl: " + e.toString());
+            pageSnapshot.setCrawlStatus("Unable to crawl: " + e);
             throw new SnapshotException(e, pageSnapshot);
         }
 
