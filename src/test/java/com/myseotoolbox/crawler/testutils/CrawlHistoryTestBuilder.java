@@ -43,7 +43,7 @@ public class CrawlHistoryTestBuilder {
     }
 
     private PageCrawl buildCrawlForAllValue(PageSnapshot value) {
-        return new PageCrawl(generateCrawlId(), uri, new LastCrawl(WEBSITE_CRAWL_ID), crawlDate,
+        return new PageCrawl(generateCrawlId(), uri, crawlDate,
                 ResolvableField.forValue(value.getRedirectChainElements()),
                 ResolvableField.forValue(value.getTitle()),
                 ResolvableField.forValue(value.getMetaDescriptions()),
