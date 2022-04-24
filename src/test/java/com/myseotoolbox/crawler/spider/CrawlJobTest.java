@@ -35,7 +35,7 @@ public class CrawlJobTest {
     public static final URI TEST_ORIGIN = URI.create("http://domain1");
     public static final int MAX_CRAWLS = 1000;
     @Mock private WebPageReader pageReader;
-    @Mock private CrawlEventDispatch dispatch;
+    @Mock private CrawlEventListener dispatch;
 
     @Before
     public void setUp() throws Exception {

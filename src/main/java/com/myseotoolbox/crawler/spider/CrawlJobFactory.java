@@ -25,7 +25,7 @@ public class CrawlJobFactory {
 
 
 
-    public CrawlJob build(CrawlJobConfiguration configuration, CrawlEventDispatch dispatch) {
+    public CrawlJob build(CrawlJobConfiguration configuration, CrawlEventListener dispatch) {
 
         URI origin = configuration.getOrigin();
 

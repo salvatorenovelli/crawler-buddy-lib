@@ -13,6 +13,7 @@ import java.security.cert.X509Certificate;
 
 @Slf4j
 public class HttpURLConnectionFactory {
+
     public HttpURLConnection createConnection(URI uri) throws IOException {
         HttpURLConnection connection = (HttpURLConnection) uri.toURL().openConnection();
         if (connection instanceof HttpsURLConnection) {

@@ -15,13 +15,13 @@ import java.util.stream.Collectors;
 @Slf4j
 public class CrawlJob {
 
-    private final CrawlEventDispatch dispatch;
+    private final CrawlEventListener dispatch;
     private final URI crawlOrigin;
     private final List<URI> seeds;
     private final CrawlerQueue crawlerQueue;
     private CrawlerPoolStatusMonitor crawlerPoolStatusMonitor;
 
-    public CrawlJob(URI crawlOrigin, Collection<URI> seeds, WebPageReader pageReader, UriFilter uriFilter, ThreadPoolExecutor executor, int maxCrawls, CrawlEventDispatch dispatch) {
+    public CrawlJob(URI crawlOrigin, Collection<URI> seeds, WebPageReader pageReader, UriFilter uriFilter, ThreadPoolExecutor executor, int maxCrawls, CrawlEventListener dispatch) {
         this.crawlOrigin = crawlOrigin;
         this.seeds = new ArrayList<>(seeds);
         String name = this.crawlOrigin.getHost();

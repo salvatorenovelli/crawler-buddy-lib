@@ -28,13 +28,13 @@ class CrawlerQueue implements Consumer<CrawlResult> {
     private final List<URI> seeds = new ArrayList<>();
     private final CrawlersPool crawlersPool;
     private final UriFilter uriFilter;
-    private final CrawlEventDispatch dispatch;
+    private final CrawlEventListener dispatch;
 
     private final int maxCrawls;
     private final String queueName;
     private boolean crawlShutdownInvoked = false;
 
-    public CrawlerQueue(String queueName, Collection<URI> seeds, CrawlersPool crawlersPool, UriFilter filter, int maxCrawls, CrawlEventDispatch dispatch) {
+    public CrawlerQueue(String queueName, Collection<URI> seeds, CrawlersPool crawlersPool, UriFilter filter, int maxCrawls, CrawlEventListener dispatch) {
         this.queueName = queueName;
         this.crawlersPool = crawlersPool;
         this.uriFilter = filter;

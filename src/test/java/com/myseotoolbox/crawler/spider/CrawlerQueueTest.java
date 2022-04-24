@@ -38,7 +38,7 @@ public class CrawlerQueueTest {
 
     private CrawlerQueue sut;
     @Mock private CrawlersPool pool;
-    @Mock private CrawlEventDispatch dispatch;
+    @Mock private CrawlEventListener dispatch;
 
     @Before
     public void setUp() {

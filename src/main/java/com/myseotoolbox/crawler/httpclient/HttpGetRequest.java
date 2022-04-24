@@ -1,6 +1,7 @@
 package com.myseotoolbox.crawler.httpclient;
 
 
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,14 +15,13 @@ import static com.myseotoolbox.crawler.spider.PageLinksHelper.toValidUri;
 import static com.myseotoolbox.crawler.utils.IsRedirect.isRedirect;
 
 
+@Slf4j
 public class HttpGetRequest {
 
-    public static final String BOT_NAME = "MySeoToolboxSpider" ;
+    public static final String BOT_NAME = "SpiderBuddy" ;
     public static final String BOT_VERSION = "1.0" ;
     public static final String USER_AGENT = "Mozilla/5.0 (compatible; " + BOT_NAME + "/" + BOT_VERSION + ")" ;
     public static final int DEFAULT_CONNECTION_TIMEOUT = 30000;
-
-    private static final Logger logger = LoggerFactory.getLogger(HttpGetRequest.class);
     private final URI uri;
     private final HttpURLConnectionFactory connectionFactory;
 
@@ -57,7 +57,7 @@ public class HttpGetRequest {
 
 
         if (containsUnicodeCharacters(locationHeader)) {
-            logger.warn("Redirect destination {} contains non ASCII characters (as required by the standard)", connection.getURL());
+            log.warn("Redirect destination {} contains non ASCII characters (as required by the standard)", connection.getURL());
             locationHeader = SafeStringEscaper.escapeString(locationHeader);
         }
 

@@ -8,7 +8,6 @@ import java.net.URI;
 
 @Data
 public class HttpResponse {
-
     private final int httpStatus;
     private final URI location;
     private final String contentType;

@@ -13,7 +13,6 @@ import java.nio.charset.StandardCharsets;
 
 
 public class HTTPClient {
-
     public String get(URI uri) throws IOException {
         try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
             HttpGet httpget = new HttpGet(uri);

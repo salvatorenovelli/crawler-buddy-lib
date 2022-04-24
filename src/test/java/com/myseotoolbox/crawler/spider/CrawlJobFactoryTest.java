@@ -40,7 +40,7 @@ public class CrawlJobFactoryTest {
     @Mock private WebPageReader reader;
     @Spy private WebsiteUriFilterFactory filtersFactory = new WebsiteUriFilterFactory();
     @Mock private RobotsTxt mockRobotsTxt;
-    @Mock private CrawlEventDispatch dispatch;
+    @Mock private CrawlEventListener dispatch;
     @Mock private SitemapReader sitemapReader;
 
     private CrawlExecutorFactory crawlExecutorFactory = new CurrentThreadCrawlExecutorFactory();
