@@ -1,13 +1,13 @@
 package com.myseotoolbox.crawler.spider.sitemap;
 
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@Slf4j
+@Log4j2
 public class SitemapReader {
     /*
      * There are sitemaps with millions of entries.

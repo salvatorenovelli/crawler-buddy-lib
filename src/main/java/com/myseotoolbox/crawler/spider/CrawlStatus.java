@@ -1,6 +1,6 @@
 package com.myseotoolbox.crawler.spider;
 
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 
 import javax.annotation.concurrent.ThreadSafe;
 import java.net.URI;
@@ -11,7 +11,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 
-@Slf4j
+@Log4j2
 @ThreadSafe
 class CrawlStatus {
     private final Set<String> visited = new HashSet<>();

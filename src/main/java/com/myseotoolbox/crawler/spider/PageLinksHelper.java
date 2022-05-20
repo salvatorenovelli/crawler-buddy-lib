@@ -5,7 +5,7 @@ import com.google.common.net.UrlEscapers;
 import com.myseotoolbox.crawler.pagelinks.PageLink;
 import com.myseotoolbox.crawler.utils.RemoveUrlFragment;
 import com.myseotoolbox.crawler.utils.UrlDecoder;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 
 import javax.annotation.Nullable;
 import java.io.UnsupportedEncodingException;
@@ -19,7 +19,7 @@ import java.util.stream.Stream;
 import static com.myseotoolbox.crawler.utils.UriUtils.isValidUri;
 
 
-@Slf4j
+@Log4j2
 public class PageLinksHelper {
 
     public static final int MAX_URL_LEN = 1000;

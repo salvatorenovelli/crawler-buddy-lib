@@ -4,14 +4,14 @@ import com.myseotoolbox.crawler.httpclient.SnapshotException;
 import com.myseotoolbox.crawler.httpclient.WebPageReader;
 import com.myseotoolbox.crawler.model.CrawlResult;
 import com.myseotoolbox.crawler.spider.model.SnapshotTask;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 import org.jsoup.UnsupportedMimeTypeException;
 
 import java.net.URI;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.function.Consumer;
 
-@Slf4j
+@Log4j2
 public class CrawlersPool implements Consumer<SnapshotTask> {
 
     private final ThreadPoolExecutor executor;

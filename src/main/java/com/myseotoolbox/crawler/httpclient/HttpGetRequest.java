@@ -1,9 +1,7 @@
 package com.myseotoolbox.crawler.httpclient;
 
 
-import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.log4j.Log4j2;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -15,7 +13,7 @@ import static com.myseotoolbox.crawler.spider.PageLinksHelper.toValidUri;
 import static com.myseotoolbox.crawler.utils.IsRedirect.isRedirect;
 
 
-@Slf4j
+@Log4j2
 public class HttpGetRequest {
 
     public static final String BOT_NAME = "SpiderBuddy" ;

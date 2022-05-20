@@ -6,7 +6,7 @@ import com.myseotoolbox.crawler.model.PageSnapshot;
 import com.myseotoolbox.crawler.spider.model.SnapshotTask;
 import com.myseotoolbox.crawler.utils.LinkResolver;
 import com.myseotoolbox.crawler.utils.LoggingUtils;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 
 import javax.annotation.concurrent.ThreadSafe;
 import java.net.URI;
@@ -20,7 +20,7 @@ import static com.myseotoolbox.crawler.spider.PageLinksHelper.MAX_URL_LEN;
 import static com.myseotoolbox.crawler.utils.GetDestinationUri.getDestinationUri;
 import static com.myseotoolbox.crawler.utils.IsCanonicalized.isCanonicalizedToDifferentUri;
 
-@Slf4j
+@Log4j2
 @ThreadSafe
 class CrawlerQueue implements Consumer<CrawlResult> {
 

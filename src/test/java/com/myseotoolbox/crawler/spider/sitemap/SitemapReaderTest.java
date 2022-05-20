@@ -4,9 +4,6 @@ import com.myseotoolbox.crawler.testutils.testwebsite.TestWebsiteBuilder;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.springframework.boot.logging.LogLevel;
-import org.springframework.boot.logging.LoggingSystem;
 
 import java.net.URI;
 import java.util.Collections;
@@ -22,7 +19,6 @@ public class SitemapReaderTest {
 
     @Before
     public void setUp() throws Exception {
-        LoggingSystem.get(ClassLoader.getSystemClassLoader()).setLogLevel(Logger.ROOT_LOGGER_NAME, LogLevel.INFO);
         testWebsiteBuilder.run();
     }
 

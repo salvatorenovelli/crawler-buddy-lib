@@ -4,7 +4,7 @@ import com.myseotoolbox.crawler.httpclient.SafeStringEscaper;
 import com.myseotoolbox.crawler.spider.PageLinksHelper;
 import com.myseotoolbox.crawler.testutils.TestWebsite;
 import lombok.Getter;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
 
@@ -12,7 +12,7 @@ import java.io.InputStream;
 import java.net.URI;
 import java.util.*;
 
-@Slf4j
+@Log4j2
 public class TestWebsiteBuilder {
 
     private final Server server;

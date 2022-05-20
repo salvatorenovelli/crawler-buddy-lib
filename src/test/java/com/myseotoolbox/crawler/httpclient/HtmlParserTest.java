@@ -25,11 +25,24 @@ public class HtmlParserTest {
         assertThat(parse.getTitle(), is("This is the head title"));
     }
 
+    /**
+     * Widely used browsers support this. Not clear if SEO is impacted
+     * */
     @Test
     public void canFindTitleOutsideHead() throws IOException {
         InputStream is = givenHtmlPage().withBodyElement("<TITLE>This is the title</TITLE>").build();
         PageSnapshot parse = sut.parse("http://somehost", Collections.emptyList(), is);
         assertThat(parse.getTitle(), is("This is the title"));
+    }
+
+    @Test
+    public void shouldPrioritizeTitleInHead() throws IOException {
+        InputStream is = givenHtmlPage()
+                .withHeadElement("<TITLE>This is the head title</TITLE>")
+                .withBodyElement("<TITLE>This is the body title</TITLE>").build();
+
+        PageSnapshot parse = sut.parse("http://somehost", Collections.emptyList(), is);
+        assertThat(parse.getTitle(), is("This is the head title"));
     }
 
     @Test

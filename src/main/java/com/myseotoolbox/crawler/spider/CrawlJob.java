@@ -3,7 +3,7 @@ package com.myseotoolbox.crawler.spider;
 import com.myseotoolbox.crawler.httpclient.WebPageReader;
 import com.myseotoolbox.crawler.spider.filter.WebsiteOriginUtils;
 import com.myseotoolbox.crawler.websitecrawl.CrawlStartedEvent;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.stream.Collectors;
 
-@Slf4j
+@Log4j2
 public class CrawlJob {
 
     private final CrawlEventListener dispatch;

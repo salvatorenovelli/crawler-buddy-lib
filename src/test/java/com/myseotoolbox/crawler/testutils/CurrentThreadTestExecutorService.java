@@ -1,6 +1,6 @@
 package com.myseotoolbox.crawler.testutils;
 
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 
 import java.util.List;
 import java.util.concurrent.*;
@@ -9,7 +9,7 @@ import java.util.concurrent.*;
  * Thread builder that doesn't really return a thread but makes the current thread execute the {@link Runnable} command
  */
 
-@Slf4j
+@Log4j2
 public class CurrentThreadTestExecutorService extends ThreadPoolExecutor {
 
     public CurrentThreadTestExecutorService() {

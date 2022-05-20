@@ -7,7 +7,7 @@ import crawlercommons.sitemaps.SiteMapIndex;
 import crawlercommons.sitemaps.SiteMapParser;
 import crawlercommons.sitemaps.UnknownFormatException;
 import io.vavr.control.Try;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 
 import java.io.IOException;
 import java.net.URI;
@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 import static com.myseotoolbox.crawler.spider.filter.WebsiteOriginUtils.isHostMatching;
 
 
-@Slf4j
+@Log4j2
 public class SiteMap {
 
     private final URI origin;

@@ -2,14 +2,14 @@ package com.myseotoolbox.crawler.spider.filter.robotstxt;
 
 import crawlercommons.robots.SimpleRobotRules;
 import crawlercommons.robots.SimpleRobotRulesParser;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 
 import java.net.URI;
 import java.util.List;
 
 import static com.myseotoolbox.crawler.httpclient.HttpGetRequest.BOT_NAME;
 
-@Slf4j
+@Log4j2
 public class DefaultRobotsTxt implements RobotsTxt {
 
     private final SimpleRobotRules robotRules;

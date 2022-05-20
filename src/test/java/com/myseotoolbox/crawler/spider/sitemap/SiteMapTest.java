@@ -6,9 +6,6 @@ import com.myseotoolbox.crawler.testutils.testwebsite.TestWebsiteBuilder;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.springframework.boot.logging.LogLevel;
-import org.springframework.boot.logging.LoggingSystem;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -37,7 +34,6 @@ public class SiteMapTest {
 
     @Before
     public void setUp() throws Exception {
-        LoggingSystem.get(ClassLoader.getSystemClassLoader()).setLogLevel(Logger.ROOT_LOGGER_NAME, LogLevel.INFO);
         testWebsite = testWebsiteBuilder.run();
         origin = testUri("/");
         siteMap = new SiteMap(origin, uri("/sitemap.xml"));

@@ -5,7 +5,7 @@ import com.myseotoolbox.crawler.spider.configuration.CrawlJobConfiguration;
 import com.myseotoolbox.crawler.spider.filter.robotstxt.RobotsTxt;
 import com.myseotoolbox.crawler.spider.sitemap.SitemapReader;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 
 import java.net.URI;
 import java.util.Collection;
@@ -14,7 +14,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-@Slf4j
+@Log4j2
 @RequiredArgsConstructor
 public class CrawlJobFactory {
 

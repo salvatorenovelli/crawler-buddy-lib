@@ -1,8 +1,8 @@
 package com.myseotoolbox.crawler.httpclient;
 
-import com.myseotoolbox.crawler.pagelinks.PageLink;
 import com.myseotoolbox.crawler.model.PageSnapshot;
 import com.myseotoolbox.crawler.model.RedirectChainElement;
+import com.myseotoolbox.crawler.pagelinks.PageLink;
 import org.jsoup.nodes.Attribute;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -19,7 +19,7 @@ class PageSnapshotBuilder {
 
         PageSnapshot pageSnapshot = new PageSnapshot(
                 removeFragment(uri),
-                page.title(),
+                getTitle(page),
                 getTagContents(page, "H1"),
                 getTagContents(page, "H2"),
                 extractFromTag(page, "meta[name=\"description\"]", element -> element.attr("content")),
@@ -32,8 +32,16 @@ class PageSnapshotBuilder {
         return pageSnapshot;
     }
 
+    private static String getTitle(Document page) {
+        return page.title().isBlank() ? getFirstTagContents(page, "TITLE") : page.title();
+    }
+
     private static String removeFragment(String uri) {
         return uri.split("#")[0];
+    }
+
+    private static String getFirstTagContents(Element page, String tag) {
+        return extractFromTag(page, tag, Element::html).stream().findFirst().orElse("");
     }
 
     private static List<String> getTagContents(Element page, String tag) {

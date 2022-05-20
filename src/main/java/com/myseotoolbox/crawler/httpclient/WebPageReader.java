@@ -3,7 +3,7 @@ package com.myseotoolbox.crawler.httpclient;
 import com.myseotoolbox.crawler.CalendarService;
 import com.myseotoolbox.crawler.model.*;
 import com.myseotoolbox.crawler.spider.UriFilter;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 import org.jsoup.UnsupportedMimeTypeException;
 
 import java.io.IOException;
@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 
 import static com.myseotoolbox.crawler.utils.IsRedirect.isRedirect;
 
-@Slf4j
+@Log4j2
 public class WebPageReader {
 
     private static final Pattern allowedContentTypeRegex = Pattern.compile("(application|text)/\\w*\\+?xml.*");

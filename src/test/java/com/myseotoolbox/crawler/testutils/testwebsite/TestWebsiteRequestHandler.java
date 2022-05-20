@@ -2,25 +2,24 @@ package com.myseotoolbox.crawler.testutils.testwebsite;
 
 import com.myseotoolbox.crawler.httpclient.SafeStringEscaper;
 import com.myseotoolbox.crawler.testutils.TestWebsite;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.SneakyThrows;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 import org.apache.commons.io.IOUtils;
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.handler.AbstractHandler;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.myseotoolbox.crawler.utils.IsRedirect.isRedirect;
 
-@Slf4j
+@Log4j2
 class TestWebsiteRequestHandler extends AbstractHandler implements TestWebsite {
     private TestWebsiteBuilder testWebsiteBuilder;
     private List<ReceivedRequest> requestsReceived = new ArrayList<>();

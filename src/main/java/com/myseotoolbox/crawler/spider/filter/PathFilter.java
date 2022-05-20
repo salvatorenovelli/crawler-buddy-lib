@@ -2,13 +2,13 @@ package com.myseotoolbox.crawler.spider.filter;
 
 import com.myseotoolbox.crawler.spider.PathMatcher;
 import com.myseotoolbox.crawler.spider.UriFilter;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Slf4j
+@Log4j2
 public class PathFilter implements UriFilter {
 
     private final List<String> allowedPaths;

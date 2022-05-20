@@ -1,11 +1,11 @@
 package com.myseotoolbox.crawler.spider;
 
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 
 import java.lang.ref.WeakReference;
 import java.util.concurrent.ThreadPoolExecutor;
 
-@Slf4j
+@Log4j2
 public class CrawlerPoolStatusMonitor {
 
     private final Thread thread;

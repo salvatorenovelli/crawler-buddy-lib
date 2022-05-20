@@ -8,10 +8,11 @@ import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import static javax.servlet.http.HttpServletResponse.*;
+import static java.net.HttpURLConnection.HTTP_MOVED_PERM;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
@@ -45,7 +46,7 @@ public class HttpGetRequestTest {
 
 
         HttpResponse execute = new HttpGetRequest(testUri(basePath), connectionFactory).execute();
-        assertThat(execute.getHttpStatus(), is(SC_MOVED_PERMANENTLY));
+        assertThat(execute.getHttpStatus(), is(HTTP_MOVED_PERM));
         assertThat(execute.getLocation(), is(testUri("/teg/%C3%91%C2%83%C3%91%C2%85%C3%90%C2%BE%C3%90%C2%B4")));
     }
 
@@ -56,7 +57,7 @@ public class HttpGetRequestTest {
 
         HttpResponse execute = new HttpGetRequest(testUri("/source"), connectionFactory).execute();
 
-        assertThat(execute.getHttpStatus(), is(SC_MOVED_PERMANENTLY));
+        assertThat(execute.getHttpStatus(), is(HTTP_MOVED_PERM));
         assertThat(execute.getLocation(), is(testUri("/relative_destination")));
     }
 
@@ -68,7 +69,7 @@ public class HttpGetRequestTest {
 
         HttpResponse execute = new HttpGetRequest(testUri("/source"), connectionFactory).execute();
 
-        assertThat(execute.getHttpStatus(), is(SC_MOVED_PERMANENTLY));
+        assertThat(execute.getHttpStatus(), is(HTTP_MOVED_PERM));
         assertThat(execute.getLocation(), is(URI.create("http://absolute_destination")));
     }
 
@@ -79,7 +80,7 @@ public class HttpGetRequestTest {
 
         HttpResponse execute = new HttpGetRequest(testUri("/source"), connectionFactory).execute();
 
-        assertThat(execute.getHttpStatus(), is(SC_MOVED_TEMPORARILY));
+        assertThat(execute.getHttpStatus(), is(HttpURLConnection.HTTP_MOVED_TEMP));
         assertThat(execute.getLocation(), is(testUri("/destination")));
     }
 
@@ -90,7 +91,7 @@ public class HttpGetRequestTest {
 
         HttpResponse execute = new HttpGetRequest(testUri("/source"), connectionFactory).execute();
 
-        assertThat(execute.getHttpStatus(), is(SC_SEE_OTHER));
+        assertThat(execute.getHttpStatus(), is(HttpURLConnection.HTTP_SEE_OTHER));
         assertThat(execute.getLocation(), is(testUri("/destination")));
     }
 
@@ -101,7 +102,7 @@ public class HttpGetRequestTest {
 
         HttpResponse execute = new HttpGetRequest(testUri("/hello"), connectionFactory).execute();
 
-        assertThat(execute.getHttpStatus(), is(SC_OK));
+        assertThat(execute.getHttpStatus(), is(HttpURLConnection.HTTP_OK));
         assertThat(execute.getLocation(), is(testUri("/hello")));
     }
 
@@ -125,7 +126,7 @@ public class HttpGetRequestTest {
         HttpResponse firstPass = new HttpGetRequest(testUri("/source"), connectionFactory).execute();
         HttpResponse secondPass = new HttpGetRequest(firstPass.getLocation(), connectionFactory).execute();
 
-        assertThat(secondPass.getHttpStatus(), is(SC_MOVED_PERMANENTLY));
+        assertThat(secondPass.getHttpStatus(), is(HTTP_MOVED_PERM));
         assertThat(secondPass.getLocation(), is(testUri("/destination")));
     }
 

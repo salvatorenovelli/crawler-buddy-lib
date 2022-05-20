@@ -1,6 +1,6 @@
 package com.myseotoolbox.crawler.httpclient;
 
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 
 import javax.net.ssl.*;
 import java.io.IOException;
@@ -11,7 +11,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.cert.X509Certificate;
 
 
-@Slf4j
+@Log4j2
 public class HttpURLConnectionFactory {
 
     public HttpURLConnection createConnection(URI uri) throws IOException {

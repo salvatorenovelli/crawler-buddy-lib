@@ -1,14 +1,14 @@
 package com.myseotoolbox.crawler.spider.filter;
 
 import com.myseotoolbox.crawler.spider.UriFilter;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 
 import java.net.URI;
 import java.util.regex.Pattern;
 
 import static com.myseotoolbox.crawler.spider.filter.WebsiteOriginUtils.*;
 
-@Slf4j
+@Log4j2
 public class BasicUriFilter implements UriFilter {
     private static final Pattern INVALID_EXTENSIONS = Pattern.compile(".*\\.(?:css|js|bmp|gif|jpe?g|png|tiff?|mid|mp2|mp3|mp4|wav|avi|mov|mpeg|ram|m4v|pdf|rm|smil|wmv|swf|wma|zip|rar|gz)$");
     private static final Pattern VALID_SCHEME = Pattern.compile("(?:http|https)$");
