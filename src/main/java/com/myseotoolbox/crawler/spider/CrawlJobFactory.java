@@ -19,7 +19,7 @@ import java.util.stream.Stream;
 public class CrawlJobFactory {
 
     private final WebPageReaderFactory webPageReaderFactory;
-    private final WebsiteUriFilterFactory uriFilterFactory;
+    private final UriFilterFactory uriFilterFactory;
     private final ThreadPoolExecutorFactory crawlExecutorFactory;
     private final SitemapReader sitemapReader;
 

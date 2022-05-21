@@ -38,7 +38,7 @@ public class CrawlJobFactoryTest {
     private static final URI TEST_FILTERED_LINK = TEST_ORIGIN.resolve("base-path/path");
 
     @Mock private WebPageReader reader;
-    @Spy private WebsiteUriFilterFactory filtersFactory = new WebsiteUriFilterFactory();
+    @Spy private UriFilterFactory filtersFactory = new UriFilterFactory();
     @Mock private RobotsTxt mockRobotsTxt;
     @Mock private CrawlEventListener dispatch;
     @Mock private SitemapReader sitemapReader;

@@ -10,7 +10,8 @@ import java.net.URI;
 import java.util.List;
 
 @Log4j2
-public class WebsiteUriFilterFactory {
+public class UriFilterFactory {
+
     public UriFilter build(URI origin, List<String> allowedPaths, RobotsTxt robotsTxt) {
         return buildUriFilter(origin, allowedPaths, robotsTxt);
     }

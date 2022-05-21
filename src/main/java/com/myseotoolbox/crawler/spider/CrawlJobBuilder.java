@@ -37,7 +37,7 @@ public class CrawlJobBuilder {
         WebPageReaderFactory webPageReaderFactory = new WebPageReaderFactory(httpRequestFactory);
         SitemapReader sitemapReader = new SitemapReader();
 
-        CrawlJobFactory crawlJobFactory =  new CrawlJobFactory(webPageReaderFactory, new WebsiteUriFilterFactory(), threadPoolExecutorFactory, sitemapReader);
+        CrawlJobFactory crawlJobFactory =  new CrawlJobFactory(webPageReaderFactory, new UriFilterFactory(), threadPoolExecutorFactory, sitemapReader);
 
 
         maxConcurrentConnections = 1;

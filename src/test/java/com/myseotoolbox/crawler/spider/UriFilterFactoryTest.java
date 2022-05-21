@@ -12,7 +12,7 @@ import static com.myseotoolbox.crawler.spider.configuration.AllowedPathFromSeeds
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class WebsiteUriFilterFactoryTest {
+public class UriFilterFactoryTest {
 
     public static final RobotsTxt DISABLE_ALL_ROBOTS_TXT = new RobotsTxt() {
         @Override
@@ -25,7 +25,7 @@ public class WebsiteUriFilterFactoryTest {
             return false;
         }
     };
-    WebsiteUriFilterFactory sut = new WebsiteUriFilterFactory();
+    UriFilterFactory sut = new UriFilterFactory();
 
 
     @Test
