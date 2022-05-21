@@ -21,20 +21,28 @@ public class CrawlJobBuilder {
     private List<URI> seeds = Collections.emptyList();
     private ThreadPoolExecutorFactory threadPoolExecutorFactory;
     private int maxConcurrentConnections = 1;
-
     private int crawlLimit = 10000;
-
-    public CrawlJobBuilder(URI origin, CrawlEventListener listener) {
+    private CrawlJobBuilder(URI origin, CrawlEventListener listener) {
         this.origin = origin;
         this.listener = listener;
     }
-
     public static CrawlJobBuilder newCrawlJobFor(URI origin, CrawlEventListener listener) {
         return new CrawlJobBuilder(origin, listener);
     }
-
     public CrawlJobBuilder withSeeds(List<URI> seeds) {
         this.seeds = Collections.unmodifiableList(seeds);
+        return this;
+    }
+    public CrawlJobBuilder withThreadPoolFactory(ThreadPoolExecutorFactory factory) {
+        this.threadPoolExecutorFactory = factory;
+        return this;
+    }
+    public CrawlJobBuilder withConcurrentConnections(int maxConcurrentConnections) {
+        this.maxConcurrentConnections = maxConcurrentConnections;
+        return this;
+    }
+    public CrawlJobBuilder withCrawlLimit(int i) {
+        this.crawlLimit= i;
         return this;
     }
 
@@ -61,24 +69,7 @@ public class CrawlJobBuilder {
 
         return new CrawlJob(origin, allSeeds, webPageReader, uriFilter, executor, crawlLimit, listener);
     }
-
-    public CrawlJobBuilder withThreadPoolFactory(ThreadPoolExecutorFactory factory) {
-        this.threadPoolExecutorFactory = factory;
-        return this;
-    }
-
-    public CrawlJobBuilder withConcurrentConnections(int maxConcurrentConnections) {
-        this.maxConcurrentConnections = maxConcurrentConnections;
-        return this;
-    }
-
-
     private List<URI> concat(Collection<URI> seeds, Collection<URI> seedsFromSitemap) {
         return Stream.concat(seeds.stream(), seedsFromSitemap.stream()).collect(Collectors.toList());
-    }
-
-    public CrawlJobBuilder withCrawlLimit(int i) {
-        this.crawlLimit= i;
-        return this;
     }
 }
