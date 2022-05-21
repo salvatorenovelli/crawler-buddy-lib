@@ -1,5 +1,6 @@
 package com.myseotoolbox.crawler.spider.sitemap;
 
+import com.myseotoolbox.crawler.spider.UriFilter;
 import lombok.extern.log4j.Log4j2;
 
 import java.net.URI;
@@ -13,9 +14,9 @@ public class SitemapReader {
      * There are sitemaps with millions of entries.
      * allowedPaths make sure we only fetch the sitemap indexes we need.
      * */
-    public List<URI> getSeedsFromSitemaps(URI origin, List<String> sitemapsUrl, List<String> allowedPaths) {
-        log.info("Fetching {} sitemap for {} with allowed paths: {}. Urls: {}", sitemapsUrl.size(), origin, allowedPaths, sitemapsUrl);
-        List<URI> sitemapSeeds = new SiteMap(origin, sitemapsUrl, allowedPaths)
+    public List<URI> getSeedsFromSitemaps(URI origin, List<String> sitemapsUrl, UriFilter filter) {
+        log.info("Fetching {} sitemap for {} with filter: {}. Urls: {}", sitemapsUrl.size(), origin, filter, sitemapsUrl);
+        List<URI> sitemapSeeds = new SiteMap(origin, sitemapsUrl, filter)
                 .fetchUris()
                 .stream()
                 .map(this::toValidUri)

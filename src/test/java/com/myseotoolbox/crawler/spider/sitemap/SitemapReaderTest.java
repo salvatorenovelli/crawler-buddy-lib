@@ -1,5 +1,7 @@
 package com.myseotoolbox.crawler.spider.sitemap;
 
+import com.myseotoolbox.crawler.spider.UriFilter;
+import com.myseotoolbox.crawler.spider.filter.PathFilter;
 import com.myseotoolbox.crawler.testutils.testwebsite.TestWebsiteBuilder;
 import org.junit.After;
 import org.junit.Before;
@@ -35,7 +37,7 @@ public class SitemapReaderTest {
                 .havingUrls("/location1", "/location2", "/outside/shouldnotaddthis")
                 .build();
 
-        List<URI> uris = sut.getSeedsFromSitemaps(testUri("/"), testUris("/sitemap.xml"), Collections.singletonList("/"));
+        List<URI> uris = sut.getSeedsFromSitemaps(testUri("/"), testUris("/sitemap.xml"), allowingPath("/"));
 
         assertThat(uris, hasItems(testUri("/location1"), testUri("/location2")));
     }
@@ -47,7 +49,7 @@ public class SitemapReaderTest {
                 .havingUrls("/location1", "/location2", "/should not add this")
                 .build();
 
-        List<URI> uris = sut.getSeedsFromSitemaps(testUri("/"), testUris("/sitemap.xml"), Collections.singletonList("/"));
+        List<URI> uris = sut.getSeedsFromSitemaps(testUri("/"), testUris("/sitemap.xml"), allowingPath("/"));
 
         assertThat(uris, hasItems(testUri("/location1"), testUri("/location2")));
     }
@@ -59,7 +61,7 @@ public class SitemapReaderTest {
                 .havingUrls("/location1", "/location2", "http://another-domain/")
                 .build();
 
-        List<URI> uris = sut.getSeedsFromSitemaps(testUri("/"), testUris("/sitemap.xml"), Collections.singletonList("/"));
+        List<URI> uris = sut.getSeedsFromSitemaps(testUri("/"), testUris("/sitemap.xml"), allowingPath("/"));
 
         assertThat(uris, hasItems(testUri("/location1"), testUri("/location2")));
     }
@@ -74,5 +76,9 @@ public class SitemapReaderTest {
 
     private List<String> testUris(String url) {
         return Collections.singletonList(testWebsiteBuilder.buildTestUri(url).toString());
+    }
+
+    private UriFilter allowingPath(String path) {
+        return new PathFilter(Collections.singletonList(path));
     }
 }

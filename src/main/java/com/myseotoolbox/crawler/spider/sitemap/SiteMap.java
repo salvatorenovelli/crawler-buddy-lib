@@ -1,6 +1,6 @@
 package com.myseotoolbox.crawler.spider.sitemap;
 
-import com.myseotoolbox.crawler.spider.filter.PathFilter;
+import com.myseotoolbox.crawler.spider.UriFilter;
 import com.myseotoolbox.crawlercommons.UriCreator;
 import crawlercommons.sitemaps.AbstractSiteMap;
 import crawlercommons.sitemaps.SiteMapIndex;
@@ -24,19 +24,19 @@ import static com.myseotoolbox.crawler.spider.filter.WebsiteOriginUtils.isHostMa
 public class SiteMap {
 
     private final URI origin;
-    private final PathFilter pathFilter;
+    private final UriFilter filter;
     private final List<URL> siteMaps;
 
     private SiteMapParser siteMapParser = new SiteMapParser(false);
 
     SiteMap(URI origin, String sitemapUrl) {
-        this(origin, Collections.singletonList(sitemapUrl), Collections.singletonList("/"));
+        this(origin, Collections.singletonList(sitemapUrl), (sourceUri, discoveredLink) -> true);
     }
 
-    public SiteMap(URI origin, List<String> sitemaps, List<String> allowedPaths) {
+    public SiteMap(URI origin, List<String> sitemaps, UriFilter uriFilter) {
         this.origin = origin;
         this.siteMaps = sitemaps.stream().map(this::mapToUrlOrLogWarning).filter(Objects::nonNull).collect(Collectors.toList());
-        this.pathFilter = new PathFilter(allowedPaths);
+        this.filter = uriFilter;
     }
 
     public List<String> fetchUris() {
@@ -77,7 +77,7 @@ public class SiteMap {
 
     private boolean shouldFetch(URL url) {
         try {
-            return isSameDomain(url) && (this.siteMaps.contains(url) || pathFilter.shouldCrawl(URI.create(url.toString()), URI.create(url.toString())));
+            return isSameDomain(url) && (this.siteMaps.contains(url) || filter.shouldCrawl(URI.create(url.toString()), URI.create(url.toString())));
         } catch (IllegalArgumentException e) {
             log.warn("Unable to fetch sitemap on {}. {}", url, e.toString());
             return false;

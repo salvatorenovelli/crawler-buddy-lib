@@ -57,7 +57,6 @@ public class CrawlJobBuilder {
         List<String> allowedPaths = AllowedPathFromSeeds.extractAllowedPathFromSeeds(seeds);
         RobotsTxt robotsTxt = RobotsTxtBuilder.buildRobotsTxtForOrigin(origin, false);
         UriFilterFactory uriFilterFactory = new UriFilterFactory();
-        //any changes to this filter needs to be duplicated in the sitemap filtering (duplicated logic)
         UriFilter uriFilter = uriFilterFactory.build(origin, allowedPaths, robotsTxt);
 
         ConnectionFactory connectionFactory = new NoSSLVerificationConnectionFactory();
@@ -66,7 +65,7 @@ public class CrawlJobBuilder {
         WebPageReader webPageReader = new WebPageReader(uriFilter, httpRequestFactory);
 
         SitemapReader sitemapReader = new SitemapReader();
-        List<URI> seedsFromSitemap = sitemapReader.getSeedsFromSitemaps(origin, robotsTxt.getSitemaps(), allowedPaths);
+        List<URI> seedsFromSitemap = sitemapReader.getSeedsFromSitemaps(origin, robotsTxt.getSitemaps(), uriFilter);
 
         ThreadPoolExecutor executor = threadPoolExecutorFactory.buildThreadPool(origin.getHost(), maxConcurrentConnections);
         List<URI> allSeeds = concatCollections(seeds, seedsFromSitemap);
