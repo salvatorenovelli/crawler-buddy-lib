@@ -3,8 +3,8 @@ package com.myseotoolbox.crawler.httpclient;
 import java.net.URI;
 
 public class HttpRequestFactory {
-    private final NoSSLVerificationConnectionFactory connectionFactory;
-    public HttpRequestFactory(NoSSLVerificationConnectionFactory connectionFactory) {
+    private final ConnectionFactory connectionFactory;
+    public HttpRequestFactory(ConnectionFactory connectionFactory) {
         this.connectionFactory = connectionFactory;
     }
     public HttpGetRequest buildGetFor(URI uri) {

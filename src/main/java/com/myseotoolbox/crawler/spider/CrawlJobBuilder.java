@@ -1,5 +1,6 @@
 package com.myseotoolbox.crawler.spider;
 
+import com.myseotoolbox.crawler.httpclient.ConnectionFactory;
 import com.myseotoolbox.crawler.httpclient.HttpRequestFactory;
 import com.myseotoolbox.crawler.httpclient.NoSSLVerificationConnectionFactory;
 import com.myseotoolbox.crawler.httpclient.WebPageReader;
@@ -48,21 +49,21 @@ public class CrawlJobBuilder {
 
     public CrawlJob build() {
 
-        NoSSLVerificationConnectionFactory connectionFactory = new NoSSLVerificationConnectionFactory();
+        ConnectionFactory connectionFactory = new NoSSLVerificationConnectionFactory();
         HttpRequestFactory httpRequestFactory = new HttpRequestFactory(connectionFactory);
         WebPageReaderFactory webPageReaderFactory = new WebPageReaderFactory(httpRequestFactory);
-        SitemapReader sitemapReader = new SitemapReader();
-
-        UriFilterFactory uriFilterFactory = new UriFilterFactory();
 
         List<String> allowedPaths = AllowedPathFromSeeds.extractAllowedPathFromSeeds(seeds);
 
         RobotsTxt robotsTxt = RobotsTxtBuilder.buildRobotsTxtForOrigin(origin, false);
-        //any changes to this filter needs to be duplicated in the sitemap filtering (for now is duplicated logic)
+
+        UriFilterFactory uriFilterFactory = new UriFilterFactory();
+        //any changes to this filter needs to be duplicated in the sitemap filtering (duplicated logic)
         UriFilter uriFilter = uriFilterFactory.build(origin, allowedPaths, robotsTxt);
         WebPageReader webPageReader = webPageReaderFactory.build(uriFilter);
         ThreadPoolExecutor executor = threadPoolExecutorFactory.buildThreadPool(origin.getHost(), maxConcurrentConnections);
 
+        SitemapReader sitemapReader = new SitemapReader();
         List<URI> seedsFromSitemap = sitemapReader.getSeedsFromSitemaps(origin, robotsTxt.getSitemaps(), allowedPaths);
 
         List<URI> allSeeds = concat(seeds, seedsFromSitemap);

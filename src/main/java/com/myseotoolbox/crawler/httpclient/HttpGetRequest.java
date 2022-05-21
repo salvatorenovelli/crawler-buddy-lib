@@ -21,9 +21,9 @@ public class HttpGetRequest {
     public static final String USER_AGENT = "Mozilla/5.0 (compatible; " + BOT_NAME + "/" + BOT_VERSION + ")" ;
     public static final int DEFAULT_CONNECTION_TIMEOUT = 30000;
     private final URI uri;
-    private final NoSSLVerificationConnectionFactory connectionFactory;
+    private final ConnectionFactory connectionFactory;
 
-    public HttpGetRequest(URI uri, NoSSLVerificationConnectionFactory connectionFactory) {
+    public HttpGetRequest(URI uri, ConnectionFactory connectionFactory) {
         this.uri = uri;
         this.connectionFactory = connectionFactory;
     }

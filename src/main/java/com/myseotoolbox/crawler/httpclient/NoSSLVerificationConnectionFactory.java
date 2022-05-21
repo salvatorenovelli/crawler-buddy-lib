@@ -12,8 +12,9 @@ import java.security.cert.X509Certificate;
 
 
 @Log4j2
-public class NoSSLVerificationConnectionFactory {
+public class NoSSLVerificationConnectionFactory implements ConnectionFactory {
 
+    @Override
     public HttpURLConnection createConnection(URI uri) throws IOException {
         HttpURLConnection connection = (HttpURLConnection) uri.toURL().openConnection();
         if (connection instanceof HttpsURLConnection) {
