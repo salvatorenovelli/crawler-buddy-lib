@@ -27,50 +27,54 @@ public class CrawlJobBuilder {
         this.origin = origin;
         this.listener = listener;
     }
+
     public static CrawlJobBuilder newCrawlJobFor(URI origin, CrawlEventListener listener) {
         return new CrawlJobBuilder(origin, listener);
     }
+
     public CrawlJobBuilder withSeeds(List<URI> seeds) {
         this.seeds = Collections.unmodifiableList(seeds);
         return this;
     }
+
     public CrawlJobBuilder withThreadPoolFactory(ThreadPoolExecutorFactory factory) {
         this.threadPoolExecutorFactory = factory;
         return this;
     }
+
     public CrawlJobBuilder withConcurrentConnections(int maxConcurrentConnections) {
         this.maxConcurrentConnections = maxConcurrentConnections;
         return this;
     }
+
     public CrawlJobBuilder withCrawlLimit(int i) {
-        this.crawlLimit= i;
+        this.crawlLimit = i;
         return this;
     }
 
     public CrawlJob build() {
 
-        ConnectionFactory connectionFactory = new NoSSLVerificationConnectionFactory();
-        HttpRequestFactory httpRequestFactory = new HttpRequestFactory(connectionFactory);
-        WebPageReaderFactory webPageReaderFactory = new WebPageReaderFactory(httpRequestFactory);
-
         List<String> allowedPaths = AllowedPathFromSeeds.extractAllowedPathFromSeeds(seeds);
-
         RobotsTxt robotsTxt = RobotsTxtBuilder.buildRobotsTxtForOrigin(origin, false);
-
         UriFilterFactory uriFilterFactory = new UriFilterFactory();
         //any changes to this filter needs to be duplicated in the sitemap filtering (duplicated logic)
         UriFilter uriFilter = uriFilterFactory.build(origin, allowedPaths, robotsTxt);
-        WebPageReader webPageReader = webPageReaderFactory.build(uriFilter);
-        ThreadPoolExecutor executor = threadPoolExecutorFactory.buildThreadPool(origin.getHost(), maxConcurrentConnections);
+
+        ConnectionFactory connectionFactory = new NoSSLVerificationConnectionFactory();
+        HttpRequestFactory httpRequestFactory = new HttpRequestFactory(connectionFactory);
+
+        WebPageReader webPageReader = new WebPageReader(uriFilter, httpRequestFactory);
 
         SitemapReader sitemapReader = new SitemapReader();
         List<URI> seedsFromSitemap = sitemapReader.getSeedsFromSitemaps(origin, robotsTxt.getSitemaps(), allowedPaths);
 
-        List<URI> allSeeds = concat(seeds, seedsFromSitemap);
+        ThreadPoolExecutor executor = threadPoolExecutorFactory.buildThreadPool(origin.getHost(), maxConcurrentConnections);
+        List<URI> allSeeds = concatCollections(seeds, seedsFromSitemap);
 
         return new CrawlJob(origin, allSeeds, webPageReader, uriFilter, executor, crawlLimit, listener);
     }
-    private List<URI> concat(Collection<URI> seeds, Collection<URI> seedsFromSitemap) {
+
+    private List<URI> concatCollections(Collection<URI> seeds, Collection<URI> seedsFromSitemap) {
         return Stream.concat(seeds.stream(), seedsFromSitemap.stream()).collect(Collectors.toList());
     }
 }
