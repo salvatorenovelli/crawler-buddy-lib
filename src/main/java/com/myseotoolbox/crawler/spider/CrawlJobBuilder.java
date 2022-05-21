@@ -22,7 +22,7 @@ public class CrawlJobBuilder {
     private ThreadPoolExecutorFactory threadPoolExecutorFactory;
     private int maxConcurrentConnections = 1;
 
-    private int crawlLimit = 10000;
+    private int crawlLimit = 1;
 
     public CrawlJobBuilder(URI origin, CrawlEventListener listener) {
         this.origin = origin;
