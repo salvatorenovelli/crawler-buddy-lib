@@ -19,8 +19,7 @@ import java.util.stream.Collectors;
 
 import static com.myseotoolbox.crawler.spider.filter.WebsiteOriginUtils.extractOrigin;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.*;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsCollectionContaining.hasItems;
 import static org.mockito.ArgumentMatchers.any;
@@ -285,12 +284,25 @@ public class SpiderIntegrationTest {
         verify(dispatch, atMost(2)).pageCrawled(any());
     }
 
+    @Test
+    public void shouldLimitCrawls() {
+        TestWebsite testWebsite = givenAWebsite().havingRootPage().withLinksTo("/1", "/2", "/3", "4").save();
+
+        CrawlJob job = getCrawlJobBuilder(testSeeds("/")).withCrawlLimit(2).build();
+        job.start();
+
+        assertThat(getReceivedRequests(testWebsite), not(hasItems("/3", "/4")));
+    }
 
     private CrawlResult uri(String uri) {
         return argThat(argument -> argument.getPageSnapshot().getUri().equals(testUri(uri).toString()));
     }
 
-    private CrawlJob buildForSeeds(List<URI> seeds){
+    private CrawlJob buildForSeeds(List<URI> seeds) {
+        return getCrawlJobBuilder(seeds).build();
+    }
+
+    private CrawlJobBuilder getCrawlJobBuilder(List<URI> seeds) {
 
         URI origin = extractOrigin(seeds.get(0));
 
@@ -298,8 +310,8 @@ public class SpiderIntegrationTest {
                 .newCrawlJobFor(origin, dispatch)
                 .withSeeds(seeds)
                 .withConcurrentConnections(seeds.size())
-                .withThreadPoolFactory(currentThreadThreadPoolFactory)
-                .build();
+                .withThreadPoolFactory(currentThreadThreadPoolFactory);
+
     }
 
 
