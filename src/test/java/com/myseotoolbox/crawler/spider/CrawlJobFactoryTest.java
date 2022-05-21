@@ -43,7 +43,7 @@ public class CrawlJobFactoryTest {
     @Mock private CrawlEventListener dispatch;
     @Mock private SitemapReader sitemapReader;
 
-    private CrawlExecutorFactory crawlExecutorFactory = new CurrentThreadCrawlExecutorFactory();
+    private ThreadPoolExecutorFactory crawlExecutorFactory = new CurrentThreadExecutorFactory();
 
 
     private CrawlJobFactory sut;
@@ -118,10 +118,10 @@ public class CrawlJobFactoryTest {
     }
 
     //Execute in the test thread instead of spawning a new one
-    private class CurrentThreadCrawlExecutorFactory extends CrawlExecutorFactory {
+    private class CurrentThreadExecutorFactory extends ThreadPoolExecutorFactory {
 
         @Override
-        public ThreadPoolExecutor buildExecutor(String namePostfix, int concurrentConnections) {
+        public ThreadPoolExecutor buildThreadPool(String namePostfix, int concurrentConnections) {
             return new CurrentThreadTestExecutorService();
         }
     }

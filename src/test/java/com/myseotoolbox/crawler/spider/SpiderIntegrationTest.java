@@ -6,7 +6,7 @@ import com.myseotoolbox.crawler.spider.sitemap.SitemapReader;
 import com.myseotoolbox.crawler.testutils.TestWebsite;
 import com.myseotoolbox.crawler.testutils.testwebsite.ReceivedRequest;
 import com.myseotoolbox.crawler.testutils.testwebsite.TestWebsiteBuilder;
-import com.myseotoolbox.crawler.utils.CurrentThreadCrawlExecutorFactory;
+import com.myseotoolbox.crawler.utils.CurrentThreadExecutorFactory;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,9 +33,7 @@ import static org.mockito.Mockito.*;
 @RunWith(MockitoJUnitRunner.class)
 public class SpiderIntegrationTest {
 
-    private CrawlExecutorFactory testExecutorBuilder = new CurrentThreadCrawlExecutorFactory();
-
-    private final SitemapReader sitemapReader = new SitemapReader();
+    private ThreadPoolExecutorFactory currentThreadThreadPoolFactory = new CurrentThreadExecutorFactory();
 
     @Mock
     private CrawlEventListener dispatch;
@@ -294,22 +292,16 @@ public class SpiderIntegrationTest {
         return argThat(argument -> argument.getPageSnapshot().getUri().equals(testUri(uri).toString()));
     }
 
-    private CrawlJob buildForSeeds(List<URI> seeds) {
+    private CrawlJob buildForSeeds(List<URI> seeds){
 
         URI origin = extractOrigin(seeds.get(0));
-        SpiderConfig spiderConfig = new SpiderConfig();
 
-        CrawlJobFactory crawlJobFactory = spiderConfig
-                .getCrawlJobFactory(testExecutorBuilder, sitemapReader);
-
-        CrawlJobConfiguration conf = CrawlJobConfiguration
-                .newConfiguration(origin)
+        return CrawlJobBuilder
+                .newCrawlJobFor(origin, dispatch)
                 .withSeeds(seeds)
                 .withConcurrentConnections(seeds.size())
-                .withRobotsTxt(RobotsTxtBuilder.buildRobotsTxtForOrigin(origin, false))
+                .withThreadPoolFactory(currentThreadThreadPoolFactory)
                 .build();
-
-        return crawlJobFactory.build(conf, dispatch);
     }
 
 

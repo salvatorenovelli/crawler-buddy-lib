@@ -20,7 +20,7 @@ public class CrawlJobFactory {
 
     private final WebPageReaderFactory webPageReaderFactory;
     private final WebsiteUriFilterFactory uriFilterFactory;
-    private final CrawlExecutorFactory crawlExecutorFactory;
+    private final ThreadPoolExecutorFactory crawlExecutorFactory;
     private final SitemapReader sitemapReader;
 
 
@@ -36,7 +36,7 @@ public class CrawlJobFactory {
         //any changes to this filter needs to be duplicated in the sitemap filtering (for now is duplicated logic)
         UriFilter uriFilter = uriFilterFactory.build(origin, allowedPaths, robotsTxt);
         WebPageReader webPageReader = webPageReaderFactory.build(uriFilter);
-        ThreadPoolExecutor executor = crawlExecutorFactory.buildExecutor(origin.getHost(), configuration.getMaxConcurrentConnections());
+        ThreadPoolExecutor executor = crawlExecutorFactory.buildThreadPool(origin.getHost(), configuration.getMaxConcurrentConnections());
 
         List<URI> seedsFromSitemap = sitemapReader.getSeedsFromSitemaps(origin, robotsTxt.getSitemaps(), allowedPaths);
 

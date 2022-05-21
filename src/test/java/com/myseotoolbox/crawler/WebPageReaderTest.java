@@ -1,7 +1,7 @@
 package com.myseotoolbox.crawler;
 
 import com.myseotoolbox.crawler.httpclient.HttpRequestFactory;
-import com.myseotoolbox.crawler.httpclient.HttpURLConnectionFactory;
+import com.myseotoolbox.crawler.httpclient.NoSSLVerificationConnectionFactory;
 import com.myseotoolbox.crawler.httpclient.SnapshotException;
 import com.myseotoolbox.crawler.httpclient.WebPageReader;
 import com.myseotoolbox.crawler.model.CrawlResult;
@@ -42,7 +42,7 @@ public class WebPageReaderTest {
 
     private WebPageReader sut;
     private TestWebsiteBuilder testWebsiteBuilder = TestWebsiteBuilder.build();
-    private HttpRequestFactory httpRequestFactory = new HttpRequestFactory(new HttpURLConnectionFactory());
+    private HttpRequestFactory httpRequestFactory = new HttpRequestFactory(new NoSSLVerificationConnectionFactory());
 
     @Before
     public void setUp() {

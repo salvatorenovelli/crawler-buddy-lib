@@ -22,7 +22,7 @@ public class HttpGetRequestTest {
     public static final String LOCATION_WITH_UNICODE_CHARACTERS = "/família";
 
     TestWebsiteBuilder testWebsiteBuilder = TestWebsiteBuilder.build();
-    private HttpURLConnectionFactory connectionFactory = new HttpURLConnectionFactory();
+    private NoSSLVerificationConnectionFactory connectionFactory = new NoSSLVerificationConnectionFactory();
 
     @Before
     public void setUp() throws Exception {

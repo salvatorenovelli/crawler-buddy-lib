@@ -13,7 +13,7 @@ import static org.junit.Assert.fail;
 
 public class HttpURLConnectionFactoryTest {
 
-    HttpURLConnectionFactory sut = new HttpURLConnectionFactory();
+    NoSSLVerificationConnectionFactory sut = new NoSSLVerificationConnectionFactory();
 
 
     @Test
