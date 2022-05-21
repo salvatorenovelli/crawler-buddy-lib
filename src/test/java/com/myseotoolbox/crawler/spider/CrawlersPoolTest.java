@@ -51,12 +51,8 @@ public class CrawlersPoolTest {
         when(reader.snapshotPage(SUCCESS_TEST_LINK)).thenReturn(TEST_SNAPSHOT_RESULT);
         when(reader.snapshotPage(FAILURE_TEST_LINK)).thenThrow(new SnapshotException(new RuntimeException("This one's not good"), FAILURE_TEST_SNAPSHOT));
 
-        LoggerContext ctx = (LoggerContext) LogManager.getContext(false);
-        Configuration config = ctx.getConfiguration();
+        Configuration config = ((LoggerContext)LogManager.getContext(false)).getConfiguration();
         testAppender = config.getAppender("TestAppender");
-
-        Map<String, Appender> appenders = config.getAppenders();
-
 
         sut = new CrawlersPool(reader, executor);
     }
