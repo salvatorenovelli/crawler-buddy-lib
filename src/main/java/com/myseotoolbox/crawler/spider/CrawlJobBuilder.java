@@ -76,4 +76,9 @@ public class CrawlJobBuilder {
     private List<URI> concat(Collection<URI> seeds, Collection<URI> seedsFromSitemap) {
         return Stream.concat(seeds.stream(), seedsFromSitemap.stream()).collect(Collectors.toList());
     }
+
+    public CrawlJobBuilder withCrawlLimit(int i) {
+        this.crawlLimit= i;
+        return this;
+    }
 }
