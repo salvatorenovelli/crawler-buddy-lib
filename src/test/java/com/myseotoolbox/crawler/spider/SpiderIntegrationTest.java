@@ -1,8 +1,6 @@
 package com.myseotoolbox.crawler.spider;
 
 import com.myseotoolbox.crawler.model.CrawlResult;
-import com.myseotoolbox.crawler.spider.configuration.CrawlJobConfiguration;
-import com.myseotoolbox.crawler.spider.sitemap.SitemapReader;
 import com.myseotoolbox.crawler.testutils.TestWebsite;
 import com.myseotoolbox.crawler.testutils.testwebsite.ReceivedRequest;
 import com.myseotoolbox.crawler.testutils.testwebsite.TestWebsiteBuilder;
