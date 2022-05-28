@@ -4,7 +4,7 @@ import com.myseotoolbox.crawler.model.CrawlResult;
 import com.myseotoolbox.crawler.testutils.TestWebsite;
 import com.myseotoolbox.crawler.testutils.testwebsite.ReceivedRequest;
 import com.myseotoolbox.crawler.testutils.testwebsite.TestWebsiteBuilder;
-import com.myseotoolbox.crawler.utils.CurrentThreadExecutorFactory;
+import com.myseotoolbox.crawler.utils.CurrentCrawlerThreadExecutorFactory;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,7 +30,7 @@ import static org.mockito.Mockito.*;
 @RunWith(MockitoJUnitRunner.class)
 public class SpiderIntegrationTest {
 
-    private ThreadPoolExecutorFactory currentThreadThreadPoolFactory = new CurrentThreadExecutorFactory();
+    private CrawlerThreadPoolExecutorFactory currentThreadThreadPoolFactory = new CurrentCrawlerThreadExecutorFactory();
 
     @Mock
     private CrawlEventListener dispatch;

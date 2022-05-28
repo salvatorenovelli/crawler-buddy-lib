@@ -25,7 +25,6 @@ public class UriFilterFactoryTest {
             return false;
         }
     };
-    UriFilterFactory sut = new UriFilterFactory();
 
 
     @Test
@@ -33,7 +32,7 @@ public class UriFilterFactoryTest {
 
         URI origin = URI.create("http://testhost/subpath/");
         URI allowed = origin.resolve("/allowed/");
-        UriFilter build = sut.build(origin, extractAllowedPathFromSeeds(Collections.singletonList(allowed)), new EmptyRobotsTxt(null));
+        UriFilter build = sutFor(origin, extractAllowedPathFromSeeds(Collections.singletonList(allowed)), new EmptyRobotsTxt(null));
 
         assertTrue(build.shouldCrawl(allowed, origin.resolve("/salve")));
         assertFalse(build.shouldCrawl(origin.resolve("/outside"), origin.resolve("/salve1")));
@@ -43,7 +42,7 @@ public class UriFilterFactoryTest {
     public void shouldNotCrawlOtherDomains() {
         URI origin = URI.create("http://testhost/subpath/");
         URI allowed = origin.resolve("/allowed");
-        UriFilter build = sut.build(origin, extractAllowedPathFromSeeds(Collections.singletonList(allowed)), new EmptyRobotsTxt(null));
+        UriFilter build = sutFor(origin, extractAllowedPathFromSeeds(Collections.singletonList(allowed)), new EmptyRobotsTxt(null));
 
         assertFalse(build.shouldCrawl(allowed, URI.create("http://another-host").resolve("/allowed")));
     }
@@ -52,8 +51,12 @@ public class UriFilterFactoryTest {
     public void shouldNeverOverrideRobotsTxt() {
         URI origin = URI.create("http://testhost/");
         URI allowed = origin.resolve("/allowed");
-        UriFilter build = sut.build(origin, extractAllowedPathFromSeeds(Collections.singletonList(allowed)), DISABLE_ALL_ROBOTS_TXT);
+        UriFilter build = sutFor(origin, extractAllowedPathFromSeeds(Collections.singletonList(allowed)), DISABLE_ALL_ROBOTS_TXT);
 
         assertFalse(build.shouldCrawl(allowed, origin.resolve("/allowed")));
+    }
+
+    private UriFilter sutFor(URI origin, List<String> extractAllowedPathFromSeeds, RobotsTxt emptyRobotsTxt) {
+        return new DefaultUriFilter(origin,extractAllowedPathFromSeeds, emptyRobotsTxt);
     }
 }

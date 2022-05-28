@@ -19,7 +19,7 @@ public class CrawlJob {
     private final URI crawlOrigin;
     private final List<URI> seeds;
     private final CrawlerQueue crawlerQueue;
-    private CrawlerPoolStatusMonitor crawlerPoolStatusMonitor;
+    private final CrawlerPoolStatusMonitor crawlerPoolStatusMonitor;
 
     public CrawlJob(URI crawlOrigin, Collection<URI> seeds, WebPageReader pageReader, UriFilter uriFilter, ThreadPoolExecutor executor, int maxCrawls, CrawlEventListener dispatch) {
         this.crawlOrigin = crawlOrigin;
@@ -27,12 +27,8 @@ public class CrawlJob {
         String name = this.crawlOrigin.getHost();
         CrawlersPool pool = new CrawlersPool(pageReader, executor);
         this.crawlerQueue = new CrawlerQueue(name, removeSeedsOutsideOrigin(this.crawlOrigin, seeds), pool, uriFilter, maxCrawls, dispatch);
-        initMonitoring(name, executor);
+        this.crawlerPoolStatusMonitor = new CrawlerPoolStatusMonitor(name, executor);
         this.dispatch = dispatch;
-    }
-
-    private void initMonitoring(String name, ThreadPoolExecutor executor) {
-        crawlerPoolStatusMonitor = new CrawlerPoolStatusMonitor(name, executor);
     }
 
     public void start() {

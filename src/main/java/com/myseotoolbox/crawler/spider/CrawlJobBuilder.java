@@ -20,7 +20,7 @@ public class CrawlJobBuilder {
     private final URI origin;
     private final CrawlEventListener listener;
     private List<URI> seeds = Collections.emptyList();
-    private ThreadPoolExecutorFactory threadPoolExecutorFactory;
+    private CrawlerThreadPoolExecutorFactory threadPoolExecutorFactory = new CrawlerThreadPoolExecutorFactory();
     private int maxConcurrentConnections = 1;
     private int crawlLimit = 10000;
     private CrawlJobBuilder(URI origin, CrawlEventListener listener) {
@@ -37,7 +37,7 @@ public class CrawlJobBuilder {
         return this;
     }
 
-    public CrawlJobBuilder withThreadPoolFactory(ThreadPoolExecutorFactory factory) {
+    public CrawlJobBuilder withThreadPoolFactory(CrawlerThreadPoolExecutorFactory factory) {
         this.threadPoolExecutorFactory = factory;
         return this;
     }
@@ -47,8 +47,8 @@ public class CrawlJobBuilder {
         return this;
     }
 
-    public CrawlJobBuilder withCrawlLimit(int i) {
-        this.crawlLimit = i;
+    public CrawlJobBuilder withCrawlLimit(int limit) {
+        this.crawlLimit = limit;
         return this;
     }
 
@@ -56,8 +56,7 @@ public class CrawlJobBuilder {
 
         List<String> allowedPaths = AllowedPathFromSeeds.extractAllowedPathFromSeeds(seeds);
         RobotsTxt robotsTxt = RobotsTxtBuilder.buildRobotsTxtForOrigin(origin, false);
-        UriFilterFactory uriFilterFactory = new UriFilterFactory();
-        UriFilter uriFilter = uriFilterFactory.build(origin, allowedPaths, robotsTxt);
+        UriFilter uriFilter = new DefaultUriFilter(origin, allowedPaths, robotsTxt);
 
         ConnectionFactory connectionFactory = new NoSSLVerificationConnectionFactory();
         HttpRequestFactory httpRequestFactory = new HttpRequestFactory(connectionFactory);

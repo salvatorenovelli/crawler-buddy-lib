@@ -3,7 +3,7 @@ package com.myseotoolbox.crawler.spider;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class ThreadPoolExecutorFactory {
+public class CrawlerThreadPoolExecutorFactory {
 
     private final AtomicInteger threadId = new AtomicInteger(0);
 
